@@ -39,10 +39,8 @@ defmodule ExSentry.Model.Payload do
   @spec from_opts([atom: any]) :: map
   def from_opts(opts \\ []) do
     versions = ExSentry.Utils.versions
-    now = Timex.Date.local
-          |> Timex.DateFormat.format("{ISOz}")
-          |> elem(1)
-          |> String.replace(~r"\.\d{3}Z$", "")
+
+    now = Timex.Time.now(:seconds) |> to_string
 
     ## attributes
     event_id = opts[:event_id] || UUID.uuid4() |> String.replace("-", "")

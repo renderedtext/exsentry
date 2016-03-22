@@ -42,7 +42,7 @@ defmodule ExSentry.Mixfile do
     [
       {:fuzzyurl, "~> 0.8"},
       {:uuid, "~> 1.1"},
-      {:timex, ">= 0.19.0"},
+      {:timex, "~> 2.1.0"},
       {:ibrowse, "~> 4.2.2", [hex: :ibrowse]},
       {:httpotion, "~> 2.1"},
       {:poison, "~> 1.5"},
