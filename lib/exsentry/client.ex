@@ -29,14 +29,17 @@ defmodule ExSentry.Client do
   GenServer callback to initialize this server.
 
   Pass `args[:dsn]` or add `config :exsentry, dsn: "your-dsn-here"` to
-  `config.exs` to set Sentry DSN (required).  Passing a blank string `""`
-  as DSN will disable HTTP requests, as will `Mix.env == :test`.
+  `config.exs` to set Sentry DSN or export SENTRY_DNS environment
+  variable before starting your application (required).
+
+  Passing a blank string `""` as DSN will disable HTTP requests,
+  as will `Mix.env == :test`.
 
   Pass a keyword list as `args[:opts]` in order to send these options
   with each request to Sentry.
   """
   def init(args \\ %{}) do
-    dsn = Map.get(args, :dsn) || Application.get_env(:exsentry, :dsn)
+    dsn = Map.get(args, :dsn) || Application.get_env(:exsentry, :dsn) || System.get_env("SENTRY_DNS")
     cond do
       dsn == "" ->
         {:ok, %State{status: :disabled}}
